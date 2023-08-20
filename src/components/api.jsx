@@ -13,7 +13,7 @@ export async function fetchQuery(searchQuery, page) {
 
   try {
     const response = await axios.get(
-      `${BASE_URL}?${API_KEY}&q=${searchQuery}&page=${page}&${searchParams}`
+      `${BASE_URL}?key=${API_KEY}&q=${searchQuery}&page=${page}&${searchParams}`
     );
 
     const images = response.data.hits.map(
