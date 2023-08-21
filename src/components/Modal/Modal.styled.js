@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-const ModalRoot = styled.div`
+export const ModalRoot = styled.div`
   position: fixed;
   top: 0;
   bottom: 0;
@@ -9,7 +9,7 @@ const ModalRoot = styled.div`
   z-index: 1400;
 `;
 
-const Overlay = styled.div`
+export const Overlay = styled.div`
   background: rgba(0, 0, 0, 0.8);
   position: fixed;
   top: 0;
@@ -19,7 +19,7 @@ const Overlay = styled.div`
   z-index: -1;
 `;
 
-const ModalContainer = styled.div`
+export const ModalContainer = styled.div`
   height: 100%;
   outline: 0;
   overflow-x: hidden;
@@ -35,7 +35,7 @@ const ModalContainer = styled.div`
   }
 `;
 
-const ModalContent = styled.div`
+export const ModalContent = styled.div`
   max-width: 800px;
   display: inline-block;
   text-align: left;
@@ -49,7 +49,7 @@ const ModalContent = styled.div`
   overflow-y: auto;
 `;
 
-const CloseButton = styled.button`
+export const CloseButton = styled.button`
   position: absolute;
   top: 14px;
   right: 14px;

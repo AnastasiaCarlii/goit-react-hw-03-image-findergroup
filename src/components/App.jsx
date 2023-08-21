@@ -1,10 +1,15 @@
+import React, { Component } from 'react';
 import Notiflix from 'notiflix';
+
 import { fetchQuery } from './api';
 
-import { Component } from 'react';
+// import { Component } from 'react';
 import { Wrapper } from './App.styled';
 import { SearchBar } from './Searchbar/Searchbar';
 import { Button } from './Button/Button';
+import { Loader } from './Loader/Loader';
+import { ModalWindow } from './Modal/Modal';
+import { ImageGallery } from './ImageGallery/ImageGallery';
 
 export class App extends Component {
   state = {
@@ -48,7 +53,7 @@ export class App extends Component {
     });
   };
 
-  getModalImage = imageUrl => {
+  openImageModal = imageUrl => {
     this.setState({ largeImage: imageUrl });
   };
 
@@ -70,10 +75,15 @@ export class App extends Component {
   // setImages = () => {};
 
   render() {
+    const { images, largeImage, loading, totalImages } = this.state;
     return (
       <Wrapper>
         <SearchBar onSubmit={this.searchQueryValue} />
-        <Button onClick={this.handleLoadMore} />
+        <ImageGallery images={images} openImageModal={this.openImageModal} />
+        {loading && <Loader />}
+        {totalImages !== images.length && (
+          <Button onClick={this.handleLoadMore} />
+        )}
         {/* <div>
           <form
             onSubmit={evt => {
@@ -91,6 +101,12 @@ export class App extends Component {
         <div>
           <button>Load more</button>
         </div> */}
+        {largeImage && (
+          <ModalWindow
+            largeImage={largeImage}
+            largeImageStateReset={this.largeImageStateReset}
+          />
+        )}
       </Wrapper>
     );
   }
