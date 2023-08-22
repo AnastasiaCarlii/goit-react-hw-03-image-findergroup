@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyledBsSearch } from 'components/Searchbar/Searchbar.styled';
-import {
-  Header,
-  Form,
-  Button,
-  ButtonLabel,
-  Input,
-} from 'components/Searchbar/Searchbar.styled';
+// import { StyledBsSearch } from './Searchbar.styled';
+// import { MdImageSearch } from 'react-icons/md';
+
+import { Header, Form, Button, ButtonLabel, Input } from './Searchbar.styled';
 
 export const SearchBar = ({ onSubmit }) => {
   const handleSubmit = evt => {
@@ -21,7 +17,7 @@ export const SearchBar = ({ onSubmit }) => {
       <Form onSubmit={handleSubmit}>
         <Button type="submit">
           <ButtonLabel>
-            <StyledBsSearch size={20} iconColor="black" />
+            <span class="button-label">Search</span>
           </ButtonLabel>
         </Button>
         <Input
