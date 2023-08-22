@@ -19,6 +19,7 @@ export class App extends Component {
     showModal: false,
     selectedImage: null,
     currantPage: 1,
+    showLoadMoreButton: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -31,6 +32,7 @@ export class App extends Component {
           this.setState(prevState => ({
             images: [...prevState.images, ...resp.images],
             totalImages: resp.TotalHits,
+            showLoadMoreButton: resp.images.length > 0,
           }))
         )
         .catch(error => console.log(error))
@@ -49,7 +51,7 @@ export class App extends Component {
       page: 1,
       totalImages: 0,
       images: [],
-      showLoadMoreBtn: false,
+      showLoadMoreButton: false,
     });
   };
 
@@ -75,13 +77,14 @@ export class App extends Component {
   // setImages = () => {};
 
   render() {
-    const { images, largeImage, loading, totalImages } = this.state;
+    const { images, largeImage, loading, totalImages, showLoadMoreButton } =
+      this.state;
     return (
       <Wrapper>
         <SearchBar onSubmit={this.searchQueryValue} />
         <ImageGallery images={images} openImageModal={this.openImageModal} />
         {loading && <Loader />}
-        {totalImages !== images.length && (
+        {showLoadMoreButton && totalImages !== images.length && (
           <Button onClick={this.handleLoadMore} />
         )}
         {/* <div>

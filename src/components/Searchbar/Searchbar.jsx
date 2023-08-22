@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { StyledBsSearch } from 'components/Searchbar/Searchbar.styled';
 import {
   Header,
   Form,
@@ -19,7 +20,9 @@ export const SearchBar = ({ onSubmit }) => {
     <Header>
       <Form onSubmit={handleSubmit}>
         <Button type="submit">
-          <ButtonLabel>Search</ButtonLabel>
+          <ButtonLabel>
+            <StyledBsSearch size={20} iconColor="black" />
+          </ButtonLabel>
         </Button>
         <Input
           type="text"
