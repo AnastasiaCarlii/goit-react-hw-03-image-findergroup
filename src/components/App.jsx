@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import Notiflix from 'notiflix';
 
 import { fetchQuery } from './api';
-
-// import { Component } from 'react';
 import { Wrapper } from './App.styled';
 import { SearchBar } from './Searchbar/Searchbar';
 import { Button } from './Button/Button';
@@ -13,13 +11,12 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 
 export class App extends Component {
   state = {
-    query: '',
+    searchQuery: '',
     images: [],
-    isLoading: false,
+    page: 1,
+    totalImages: 0,
+    loading: false,
     showModal: false,
-    selectedImage: null,
-    currantPage: 1,
-    showLoadMoreButton: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -32,7 +29,6 @@ export class App extends Component {
           this.setState(prevState => ({
             images: [...prevState.images, ...resp.images],
             totalImages: resp.TotalHits,
-            showLoadMoreButton: resp.images.length > 0,
           }))
         )
         .catch(error => console.log(error))
@@ -51,16 +47,15 @@ export class App extends Component {
       page: 1,
       totalImages: 0,
       images: [],
-      showLoadMoreButton: false,
     });
   };
 
-  openImageModal = imageUrl => {
-    this.setState({ largeImage: imageUrl });
+  openImageModal = largeImageURL => {
+    this.setState({ showModal: largeImageURL });
   };
 
-  largeImageStateReset = () => {
-    this.setState({ largeImage: '' });
+  showModalStateReset = () => {
+    this.setState({ showModal: '' });
   };
 
   handleLoadMore = () => {
@@ -68,46 +63,22 @@ export class App extends Component {
       page: prevState.page + 1,
     }));
   };
-
-  // changeQuery = newQuery => {
-  //   this.setState({
-  //     query: newQuery,
-  //   });
-  // };
-  // setImages = () => {};
-
   render() {
-    const { images, largeImage, loading, totalImages, showLoadMoreButton } =
-      this.state;
+    const { images, showModal, loading, totalImages } = this.state;
     return (
       <Wrapper>
         <SearchBar onSubmit={this.searchQueryValue} />
         <ImageGallery images={images} openImageModal={this.openImageModal} />
         {loading && <Loader />}
-        {showLoadMoreButton && totalImages !== images.length && (
+        {totalImages !== images.length && !loading && (
           <Button onClick={this.handleLoadMore} />
         )}
-        {/* <div>
-          <form
-            onSubmit={evt => {
-              evt.preventDefault();
 
-              this.changeQuery(evt.target.elements.query.value);
-              evt.target.reset();
-            }}
-          >
-            <input type="text" name="query" />
-            <button type="submit">Submit</button>
-          </form>
-        </div>
-        <div>Gallery</div>
-        <div>
-          <button>Load more</button>
-        </div> */}
-        {largeImage && (
+        {showModal && (
           <ModalWindow
-            largeImage={largeImage}
-            largeImageStateReset={this.largeImageStateReset}
+            isOpen={!!showModal}
+            showModalStateReset={this.showModalStateReset}
+            largeImageURL={showModal}
           />
         )}
       </Wrapper>

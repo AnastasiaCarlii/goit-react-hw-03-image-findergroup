@@ -8,12 +8,12 @@ import {
   CloseButton,
 } from './Modal.styled';
 
-export const ModalWindow = ({ largeImage, largeImageStateReset }) => {
+export const ModalWindow = ({ showModal, showModalStateReset }) => {
   const [open, setOpen] = useState(true);
 
   const onCloseModal = () => {
-    if (largeImage) {
-      largeImageStateReset();
+    if (showModal) {
+      showModalStateReset();
     }
 
     setOpen(false);
@@ -32,7 +32,7 @@ export const ModalWindow = ({ largeImage, largeImageStateReset }) => {
         <ModalContainer>
           <ModalContent>
             <CloseButton onClick={onCloseModal}>Close</CloseButton>
-            <img src={largeImage} alt="" />
+            <img src={showModal} alt="" />
           </ModalContent>
         </ModalContainer>
       </ModalRoot>
