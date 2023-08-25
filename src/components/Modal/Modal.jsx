@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Modal } from 'react-responsive-modal';
 import {
   ModalRoot,
@@ -9,26 +8,24 @@ import {
 } from './Modal.styled';
 
 export const ModalWindow = ({ showModal, showModalStateReset }) => {
-  const [open, setOpen] = useState(true);
-
   const onCloseModal = () => {
     if (showModal) {
       showModalStateReset();
+      console.log('onCloseModal called');
     }
-
-    setOpen(false);
   };
 
   return (
     <Modal
-      open={open}
+      open={showModal}
       onClose={onCloseModal}
       center
       showCloseIcon={false}
       animationDuration={200}
+      styles={{ modal: { zIndex: 1000 } }}
     >
-      <ModalRoot>
-        <Overlay onClick={onCloseModal} />
+      <ModalRoot onClick={onCloseModal}>
+        <Overlay />
         <ModalContainer>
           <ModalContent>
             <CloseButton onClick={onCloseModal}>Close</CloseButton>

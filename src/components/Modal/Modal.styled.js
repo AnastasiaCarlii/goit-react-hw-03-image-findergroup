@@ -47,6 +47,11 @@ export const ModalContent = styled.div`
 
   position: relative;
   overflow-y: auto;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 `;
 
 export const CloseButton = styled.button`

@@ -76,7 +76,7 @@ export class App extends Component {
 
         {showModal && (
           <ModalWindow
-            isOpen={!!showModal}
+            showModal={showModal}
             showModalStateReset={this.showModalStateReset}
             largeImageURL={showModal}
           />
